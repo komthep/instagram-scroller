@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Instagram Scroller
 // @namespace    http://tampermonkey.net/
-// @version      1.1
+// @version      1.2
 // @description  try to take over the world!
 // @author       You
 // @match        https://www.instagram.com/*
@@ -12,7 +12,7 @@
   'use strict'
   const username = window.location.pathname.split('/')[1]
   const {
-    count,
+    count = 0,
     ownerId
   } = window.location.search.split('&').reduce((query, segment, index) => {
     const [key, value] = index ? segment.split('=') : segment.slice(1).split('=')
@@ -47,7 +47,7 @@
     a.click()
   }
 
-  if (username) {
+  if (username && ownerId) {
     if (window.confirm('Are you sure to sync photos from this instagram account ?')) {
       let photos = []
       appendCounter()
